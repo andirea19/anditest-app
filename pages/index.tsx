@@ -2,7 +2,7 @@
 import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async () => ({
-  redirect: { destination: '/films', permanent: false },
+  redirect: { destination: '/film', permanent: false },
 });
 
 export default function Home() {

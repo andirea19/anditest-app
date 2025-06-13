@@ -25,14 +25,14 @@ const FilmForm = ({ formId, filmForm, forNewFilm = true }: Props) => {
   const putData = async (data: FormData) => {
     const { id } = router.query;
     try {
-      const res = await fetch(`/api/films/${id}`, {
+      const res = await fetch(`/api/film/${id}`, {
         method: "PUT",
         headers: { "Content-Type": contentType },
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error(res.statusText);
       const json = await res.json();
-      mutate(`/api/films/${id}`, json.data, false);
+      mutate(`/api/film/${id}`, json.data, false);
       router.push("/");
     } catch {
       setMessage("Failed to update film");

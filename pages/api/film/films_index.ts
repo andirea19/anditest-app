@@ -1,4 +1,4 @@
-// pages/api/films/index.ts
+// pages/api/film/index.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../../lib/dbConnect";
 import FilmModel from "../../../models/Film";
@@ -16,10 +16,10 @@ export default async function handler(
   switch (method) {
     case "GET": {
       try {
-        const films = await FilmModel.find({});
-        return res.status(200).json({ success: true, data: films });
+        const film = await FilmModel.find({});
+        return res.status(200).json({ success: true, data: film });
       } catch (error) {
-        console.error("GET /api/films error:", error);
+        console.error("GET /api/film error:", error);
         return res.status(500).json({ success: false, message: "Fehler beim Laden der Filme" });
       }
     }
@@ -29,7 +29,7 @@ export default async function handler(
         const film = await FilmModel.create(req.body);
         return res.status(201).json({ success: true, data: film });
       } catch (error: any) {
-        console.error("POST /api/films error:", error);
+        console.error("POST /api/film error:", error);
         const message = error.message || "Fehler beim Anlegen des Films";
         return res.status(400).json({ success: false, message });
       }

@@ -36,7 +36,7 @@ const FilmForm = ({ formId, filmForm, forNewFilm = true }: Props) => {
   const putData = async (form: FormData) => {
     const { id } = router.query;
     try {
-      const res = await fetch(`/api/films/${id}`, {
+      const res = await fetch(`/api/film/${id}`, {
         method: "PUT",
         headers: {
           Accept: contentType,
@@ -46,7 +46,7 @@ const FilmForm = ({ formId, filmForm, forNewFilm = true }: Props) => {
       });
       if (!res.ok) throw new Error(res.status.toString());
       const { data } = await res.json();
-      mutate(`/api/films/${id}`, data, false);
+      mutate(`/api/film/${id}`, data, false);
       router.push("/");
     } catch {
       setMessage("Failed to update film");
