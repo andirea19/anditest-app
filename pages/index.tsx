@@ -11,7 +11,7 @@ const Index = ({ pets }: Props) => {
   return (
     <>
       {pets.map((pet) => (
-        <div key={pet._id}>
+        <div key={String(pet._id)}>
           <div className="card">
             <img src={pet.image_url} />
             <h5 className="pet-name">{pet.name}</h5>
@@ -38,10 +38,10 @@ const Index = ({ pets }: Props) => {
               </div>
 
               <div className="btn-container">
-                <Link href={{ pathname: "/[id]/edit", query: { id: pet._id } }}>
+                <Link href={{ pathname: "/[id]/edit", query: { id: String(pet._id) } }}>
                   <button className="btn edit">Edit</button>
                 </Link>
-                <Link href={{ pathname: "/[id]", query: { id: pet._id } }}>
+                <Link href={{ pathname: "/[id]", query: { id: String(pet._id) } }}>
                   <button className="btn view">View</button>
                 </Link>
               </div>
