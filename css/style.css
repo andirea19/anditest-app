@@ -43,7 +43,7 @@
   width: 300px;
   height: 400px;
   overflow: hidden;
-  border: 1.25px solid rgb(233, 233, 233);
+  border: 1.25px solid grey(233, 233, 233);
   border-radius: 16px;
   margin: 10px;
   transition: 0.5s all;
