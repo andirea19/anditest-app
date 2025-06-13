@@ -1,72 +1,71 @@
+// pages/index.tsx
 import Link from "next/link";
 import dbConnect from "../lib/dbConnect";
-import Pet, { Pets } from "../models/Pet";
+import FilmModel from "../models/Film";
 import { GetServerSideProps } from "next";
 
+// Serialisierte Film-Daten, die an die UI übergeben werden
+export interface SerializedFilm {
+  _id: string;
+  person: string;
+  favoriteFilm: string;
+  releaseYear: number;
+}
+
 type Props = {
-  pets: Pets[];
+  films: SerializedFilm[];
 };
 
-const Index = ({ pets }: Props) => {
-  return (
-    <>
-      {pets.map((pet) => (
-        <div key={String(pet._id)}>
-          <div className="card">
-            <img src={pet.image_url} />
-            <h5 className="pet-name">{pet.name}</h5>
-            <div className="main-content">
-              <p className="pet-name">{pet.name}</p>
-              <p className="owner">Owner: {pet.owner_name}</p>
-
-              {/* Extra Pet Info: Likes and Dislikes */}
-              <div className="likes info">
-                <p className="label">Likes</p>
-                <ul>
-                  {pet.likes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="dislikes info">
-                <p className="label">Dislikes</p>
-                <ul>
-                  {pet.dislikes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="btn-container">
-                <Link href={{ pathname: "/[id]/edit", query: { id: String(pet._id) } }}>
-                  <button className="btn edit">Edit</button>
-                </Link>
-                <Link href={{ pathname: "/[id]", query: { id: String(pet._id) } }}>
-                  <button className="btn view">View</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
-};
-
-/* Retrieves pet(s) data from mongodb database */
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
 
-  /* find all the data in our database */
-  const result = await Pet.find({});
+  // Alle Filme aus der DB holen
+  const result = await FilmModel.find({});
 
-  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const pets = result.map((doc) => {
-    const pet = JSON.parse(JSON.stringify(doc));
-    return pet;
-  });
+  // Dokumente in reine JS-Objekte mit String-IDs umwandeln
+  const films: SerializedFilm[] = result.map((doc) => ({
+    _id: doc._id.toString(),
+    person: doc.person,
+    favoriteFilm: doc.favoriteFilm,
+    releaseYear: doc.releaseYear,
+  }));
 
-  return { props: { pets: pets } };
+  return { props: { films } };
 };
 
-export default Index;
+const IndexPage = ({ films }: Props) => {
+  return (
+    <main className="container mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {films.map((film) => (
+        <article
+          key={film._id}
+          className="bg-white shadow rounded-lg p-4 flex flex-col justify-between"
+        >
+          <div>
+            <h2 className="text-xl font-semibold mb-2">{film.favoriteFilm}</h2>
+            <p className="text-gray-700 mb-1">
+              <span className="font-medium">Person:</span> {film.person}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-medium">Erscheinungsjahr:</span> {film.releaseYear}
+            </p>
+          </div>
+          <div className="mt-4 flex space-x-2">
+            <Link href={`/${film._id}/edit`}>
+              <a className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                Edit
+              </a>
+            </Link>
+            <Link href={`/${film._id}`}>
+              <a className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                View
+              </a>
+            </Link>
+          </div>
+        </article>
+      ))}
+    </main>
+  );
+};
+
+export default IndexPage;

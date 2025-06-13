@@ -157,3 +157,5 @@ const FilmForm = ({ formId, filmForm, forNewFilm = true }: Props) => {
 };
 
 export default FilmForm;
+export type { FormData, ErrorState };
+//export type { Props as FilmFormProps } from "./FilmForm";

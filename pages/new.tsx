@@ -1,19 +1,14 @@
-import Form from "../components/Form";
+// pages/new.tsx
+import FilmForm, { FormData as FilmFormData } from "../components/FilmForm";
 
-const NewPet = () => {
-  const petForm = {
-    name: "",
-    owner_name: "",
-    species: "",
-    age: 0,
-    poddy_trained: false,
-    diet: [],
-    image_url: "",
-    likes: [],
-    dislikes: [],
+const NewFilm = () => {
+  const filmForm: FilmFormData = {
+    person: "",
+    favoriteFilm: "",
+    releaseYear: new Date().getFullYear(),
   };
 
-  return <Form formId="add-pet-form" petForm={petForm} />;
+  return <FilmForm formId="add-film-form" filmForm={filmForm} forNewFilm />;
 };
 
-export default NewPet;
+export default NewFilm;

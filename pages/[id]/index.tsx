@@ -1,8 +1,9 @@
+// pages/[id].tsx
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import dbConnect from "../../lib/dbConnect";
-import Pet, { Pets } from "../../models/Pet";
+import FilmModel from "../../models/Film";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 
@@ -10,96 +11,82 @@ interface Params extends ParsedUrlQuery {
   id: string;
 }
 
+export interface SerializedFilm {
+  _id: string;
+  person: string;
+  favoriteFilm: string;
+  releaseYear: number;
+}
+
 type Props = {
-  pet: Pets;
+  film: SerializedFilm;
 };
 
-/* Allows you to view pet card info and delete pet card*/
-const PetPage = ({ pet }: Props) => {
+const FilmPage = ({ film }: Props) => {
   const router = useRouter();
   const [message, setMessage] = useState("");
-  const handleDelete = async () => {
-    const petID = router.query.id;
 
+  const handleDelete = async () => {
     try {
-      await fetch(`/api/pets/${petID}`, {
-        method: "Delete",
+      await fetch(`/api/films/${film._id}`, {
+        method: "DELETE",
       });
       router.push("/");
-    } catch (error) {
-      setMessage("Failed to delete the pet.");
+    } catch {
+      setMessage("Failed to delete the film.");
     }
   };
 
   return (
-    <div key={pet._id}>
-      <div className="card">
-        <img src={pet.image_url} />
-        <h5 className="pet-name">{pet.name}</h5>
-        <div className="main-content">
-          <p className="pet-name">{pet.name}</p>
-          <p className="owner">Owner: {pet.owner_name}</p>
+    <div className="container mx-auto p-6">
+      <div className="bg-white shadow rounded-lg p-6">
+        <h2 className="text-2xl font-semibold mb-4">{film.favoriteFilm}</h2>
+        <p className="text-gray-700 mb-2">
+          <span className="font-medium">Person:</span> {film.person}
+        </p>
+        <p className="text-gray-700 mb-4">
+          <span className="font-medium">Erscheinungsjahr:</span> {film.releaseYear}
+        </p>
 
-          {/* Extra Pet Info: Likes and Dislikes */}
-          <div className="likes info">
-            <p className="label">Likes</p>
-            <ul>
-              {pet.likes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
-          <div className="dislikes info">
-            <p className="label">Dislikes</p>
-            <ul>
-              {pet.dislikes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="btn-container">
-            <Link href={`/${pet._id}/edit`}>
-              <button className="btn edit">Edit</button>
-            </Link>
-            <button className="btn delete" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
+        <div className="flex space-x-2">
+          <Link href={`/${film._id}/edit`}>
+            <a className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+              Edit
+            </a>
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Delete
+          </button>
         </div>
+        {message && <p className="mt-4 text-red-600">{message}</p>}
       </div>
-      {message && <p>{message}</p>}
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
-  params,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ params }: GetServerSidePropsContext<Params>) => {
   await dbConnect();
 
   if (!params?.id) {
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 
-  const pet = await Pet.findById(params.id).lean();
-
-  if (!pet) {
-    return {
-      notFound: true,
-    };
+  const doc = await FilmModel.findById(params.id).lean();
+  if (!doc || Array.isArray(doc)) {
+    return { notFound: true };
   }
 
-  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const serializedPet = JSON.parse(JSON.stringify(pet));
-
-  return {
-    props: {
-      pet: serializedPet,
-    },
+  const film: SerializedFilm = {
+    _id: (doc._id as { toString: () => string }).toString(),
+    person: doc.person,
+    favoriteFilm: doc.favoriteFilm,
+    releaseYear: doc.releaseYear,
   };
+
+  return { props: { film } };
 };
 
-export default PetPage;
+export default FilmPage;
