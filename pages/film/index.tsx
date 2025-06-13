@@ -30,7 +30,7 @@ export default function FilmPage({ films }: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
   const films = await Film.find({}).lean();
-  return { props: { films: films.map((f) => ({ 
+  return { props: { films: films.map((f: any) => ({ 
     _id: f._id.toString(),
     person: f.person,
     favoriteFilm: f.favoriteFilm,
