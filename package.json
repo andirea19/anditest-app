@@ -1,9 +1,16 @@
 {
+  "name": "nextjs-mongodb-app",
+  "version": "1.0.0",
+  "description": "A Next.js application with MongoDB integration",
+  "author": "Your Name",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "seed": "ts-node scripts/seed.ts"
+
   },
   "dependencies": {
     "@types/node": "^20.12.7",
