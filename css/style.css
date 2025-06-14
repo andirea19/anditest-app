@@ -30,11 +30,25 @@
   color: var(--brand-black);
 }
 
-/* Primary-Button */
-.btn.view,
-.btn.edit,
-.btn.delete {
-  /* Beispiel: view bleibt blau, edit wird orange, delete schwarz */
+/* Header ganz oben links, fixed */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 8px;        /* etwas Abstand */
+  background: transparent;
+  z-index: 1000;       /* bleibt über allem */
+}
+
+/* Logo sehr klein halten */
+.app-logo {
+  height: 24px;        /* 24px hoch, Breite passt sich automatisch an */
+  width: auto;
+}
+
+/* Main-Content etwas nach unten schieben, damit nichts überlappt */
+.app-main {
+  padding-top: 40px;   /* > header-Höhe */
 }
 
 .edit.btn {

@@ -1,33 +1,16 @@
-import "../css/style.css";
-import "../css/form.css";
-import Head from "next/head";
-import Link from "next/link";
-import type { AppProps } from "next/app";
+import '@/css/style.css';    // dein globales CSS
+import '@/css/form.css';     // fallbacks für Formulare
+import type { AppProps } from 'next/app';
+import Layout from '@/components/Layout';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Film App</title>
-      </Head>
-
-      <div className="top-bar">
-        <div className="nav">
-          <Link href="/">Home</Link>
-          <Link href="/new">Neuer Film</Link>
-        </div>
-
-        <img
-          id="title"
-          src="filme.png"
-          alt="film logo"
-        ></img>
-      </div>
-      <div className="wrapper grid">
-        <Component {...pageProps} />
-      </div>
-    </>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   );
 }
-
-export default MyApp;
+// This is the main entry point for your Next.js application.
+// It imports global styles and wraps each page with a Layout component.
+// The Layout component typically includes common elements like headers and footers.
+// The `AppProps` type is used to type the props passed to the App component.
