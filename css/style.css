@@ -55,7 +55,32 @@
   background: var(--brand-orange);
   color: white;
 }
+.top-bar {
+  display: flex;              /* statt inline-block: Flex bringt nav und Logo zurück */
+  align-items: center;        /* zentriert vertikal */
+  justify-content: space-between;
+  height: 80px;               /* passt die Höhe an */
+  padding: 0 20px;            /* Innenabstand links/rechts */
+  background-color: var(--brand-black); /* oder eine andere Hintergrundfarbe */
+}
 
+/* Logo im Titelbereich */
+#title img {
+  max-height: 60px;           /* hier die maximale Logo-Höhe festlegen */
+  width: auto;                /* automatische Breite proportional zur Höhe */
+}
+
+/* Navigation links/rechts vom Logo */
+.nav {
+  display: flex;              /* Flex statt inline-block, damit die Links sichtbar bleiben */
+  gap: 1rem;                  /* Abstand zwischen den Links */
+}
+
+.nav a {
+  color: white;               /* Textfarbe anpassen, damit er sichtbar ist */
+  font-size: 1.1rem;
+  text-decoration: none;
+}
 /* Hintergrund-Akzent */
 body {
   background-color: var(--brand-light);
