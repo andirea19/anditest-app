@@ -1,6 +1,6 @@
 /* style.css */
 
-/* ① Farbvariablen */
+/* 1. neue Farbvariablen */
 :root {
   --brand-black:    #000000;
   --brand-grey:     #e9e9e9;
@@ -11,7 +11,7 @@
   --text-dark:      #f9fafb;
 }
 
-/* ② Global Reset & Grundfarben */
+/* 2 Global Reset & Grundfarben für Dark Mode*/
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +24,7 @@ body {
   color: var(--text-light);
 }
 
-/* ③ Dunkelmodus */
+/* 3. Dunkelmodus */
 .dark body {
   background-color: var(--brand-dark);
   color: var(--text-dark);
@@ -41,7 +41,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Dark-Mode-Overrides für Links */
+/* Dark-Mode-Overrides für Links, weil die gacki waren */
 .dark a {
   color: var(--text-dark);
 }
@@ -50,7 +50,7 @@ a:hover {
   color: var(--brand-orange);
 }
 
-/* ⑤ Top-Bar / Navbar */
+/* Top-Bar / Navbar */
 .top-bar {
   display: flex;
   align-items: center;
@@ -65,7 +65,7 @@ a:hover {
   z-index: 1000;
 }
 .dark .top-bar {
-  background-color: var(--brand-dark);  /* z.B. #1f2937 */
+  background-color: var(--brand-dark); 
 }
 
 .app-logo {
@@ -76,7 +76,7 @@ a:hover {
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.25rem; /* 20px */
+  gap: 1.25rem; 
 }
 
 .nav a {
@@ -88,12 +88,10 @@ a:hover {
   color: var(--brand-orange);
 }
 
-/* ⑥ Content-Padding unter Header */
 .app-main {
   padding-top: 80px; /* Header-Höhe */
 }
 
-/* ⑦ Karten */
 .card {
   position: relative;
   width: 300px;
@@ -132,7 +130,6 @@ a:hover {
   pointer-events: auto;
 }
 
-/* ⑧ Buttons */
 .btn {
   background: transparent;
   border: 1.5px solid var(--brand-black);
@@ -171,7 +168,7 @@ a:hover {
   margin-left: 10px;
 }
 
-/* ⑨ Formular-Styling */
+/*   Formular-Styling */
 form {
   width: 90%;
   max-width: 550px;

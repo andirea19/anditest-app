@@ -45,13 +45,13 @@ export default function Layout({ children }: Props) {
         {/* Navigation und Dark-Mode Toggle */}
         <nav className="flex items-center space-x-8">
         <Link href="/" className="hover:underline">
-          Home
+                Home
         </Link>
-        <Link href="/film" className="hover:underline">
-          Filmliste
+        <Link href="/film" className="hover:underline space-x-2">
+                Filmliste   
         </Link>
-        <Link href="/new" className="hover:underline">
-          Neuer Film
+        <Link href="/new" className="hover:underline space-x-2">
+                Neuer Film   
         </Link>
         <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
         <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
