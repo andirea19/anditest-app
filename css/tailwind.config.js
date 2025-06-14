@@ -1,33 +1,34 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', 
   content: [
-    // Passe ggf. an, je nachdem ob du Pages- oder App-Router nutzt:
-    "./app/**/*.{js,ts,jsx,tsx}",      // App Router
-    "./pages/**/*.{js,ts,jsx,tsx}",    // Pages Router
-    "./components/**/*.{js,ts,jsx,tsx}"
-    // Füge hier weitere Pfade hinzu, falls du Komponenten in anderen Verzeichnissen hast
-    // "./src/**/*.{js,ts,jsx,tsx}", // z.B. falls du src-Verzeichnis nutzt
+    './app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      // Hier kannst du deine eigene Farben, Abstände, Schriftgrößen o. Ä. definieren
       colors: {
-        primary: "#1E40AF",
-        secondary: "#F59E0B",
-        accent: "#10B981",
-        background: "#F3F4F6",
-        text: "#111827",
-        border: "#D1D5DB",
+        primary:         '#1E40AF',
+        secondary:       '#F59E0B',
+        accent:          '#10B981',
+        background:      '#F3F4F6',
+        'background-dark':'#1F2937',
+        text:            '#111827',
+        'text-dark':     '#F9FAFB',
+        border:          '#D1D5DB',
+        'border-dark':   '#374151',
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui"],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
       },
     },
   },
   plugins: [
-    // z.B. forms, typography, aspect-ratio…
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography")
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 };
-// Du kannst auch weitere Plugins hinzufügen, z.B.:         
+// This configuration file sets up Tailwind CSS with custom colors, dark mode support, and includes plugins for forms and typography.
+// Make sure to install the necessary packages:
