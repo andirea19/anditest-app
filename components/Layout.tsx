@@ -37,23 +37,25 @@ export default function Layout({ children }: Props) {
       <Head>
         <title>Film App</title>
       </Head>
-      <header className="top-bar flex items-center justify-between px-4 py-2">
+      <header className="top-bar flex items-center justify-between gap-4 px-4 py-2">
         {/* Logo */}
         <Link href="/">
           <img src="/logo.png" alt="Film Logo" className="app-logo h-6 w-auto" />
         </Link>
         {/* Navigation und Dark-Mode Toggle */}
-        <nav className="flex items-center space-x-8">
-        <Link href="/" className="hover:underline">
+        <nav className="flex items-center space-x-8 gap-4">
+        <Link href="/" className="hover:underline space-x-2">
                 Home
         </Link>
+                <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
+
         <Link href="/film" className="hover:underline space-x-2">
                 Filmliste   
         </Link>
+                <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
         <Link href="/new" className="hover:underline space-x-2">
                 Neuer Film   
         </Link>
-        <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
         <Link href="" className="pointer-events-none select-none">&nbsp;</Link>
         <button
           aria-label="Toggle Dark Mode"
@@ -64,7 +66,7 @@ export default function Layout({ children }: Props) {
           </button>
         </nav>
       </header>
-      <main className="app-main mt-16 p-4">{children}</main>
+      <main className="app-main mt-16 gap-4 p-4">{children}</main>
     </>
   );
 }

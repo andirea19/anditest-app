@@ -20,12 +20,14 @@
 }
 
 body {
+  padding: 1rem; 
   background-color: var(--brand-light);
   color: var(--text-light);
 }
 
 /* 3. Dunkelmodus */
 .dark body {
+  padding: 1rem; 
   background-color: var(--brand-dark);
   color: var(--text-dark);
 }
@@ -56,7 +58,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   background-color: var(--brand-light);
-  padding: 0 20px;
+  padding: 10px 20px;
   height: 80px;
   position: fixed;
   top: 0;
@@ -89,6 +91,7 @@ a:hover {
 }
 
 .app-main {
+  padding: 1rem;
   padding-top: 80px; /* Header-Höhe */
 }
 
