@@ -56,7 +56,7 @@ const FilmForm = ({ formId, filmForm, forNewFilm = true }: Props) => {
   /* POST legt einen neuen Film an */
   const postData = async (form: FormData) => {
     try {
-      const res = await fetch("/api/films", {
+      const res = await fetch("/api/film", {
         method: "POST",
         headers: {
           Accept: contentType,
